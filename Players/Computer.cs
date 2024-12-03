@@ -8,6 +8,25 @@ namespace ЭКЗ_по_Form
 {
     internal class Computer: IPlayer
     {
+        private List<IChecker> checkers;
+        public Computer(List<IChecker> checkers) 
+        {
+            this.checkers = checkers;
+        }
+        public void Move(IChecker checker, Point point)//ход игрока
+        {
+            if (Logic.IsValidMove(point))
+                checker.CheckerMove(point.X, point.Y);
+        }
+        public void Capture(IChecker checker, IChecker enemyChecker, Point point) 
+        {
+            if (Logic.IsCapture(enemyChecker)) {
+                checker.CaptureMove(enemyChecker, point.X, point.Y);
+            }
+        }
+        public void DeleteChecker(IChecker checker) {
+            checkers.Remove(checker);
+        }
         private void ComputerMove()
         {
             Random rand = new Random(); // генерация случайных чисел

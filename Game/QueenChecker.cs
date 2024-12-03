@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ЭКЗ_по_Form
 {
-    internal class QueenChecker : IMove
+    internal class QueenChecker : IChecker
     {
+        public String Color { get; set; } 
     }
 }

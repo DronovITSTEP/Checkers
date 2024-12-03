@@ -14,13 +14,13 @@ namespace ЭКЗ_по_Form
     public class Board
     {
         private const int SIZE = 8; //размер доски (8x8 клеток).
-        private Button[,] buttons = new Button[SIZE,SIZE];
-        public void StartGame()
+        private Button[,] buttons = null;
+        public Board()
         {
-            MessageBox.Show("Игра началась");
+            buttons = new Button[SIZE,SIZE];
         }
 
-        public Button[,] GetButtons(IPlayer player1, IPlayer player2)
+        public void CreateBoard(IPlayer player1, IPlayer player2)
         {
             for (int row = 0; row < SIZE; row++)
             {
@@ -34,12 +34,16 @@ namespace ЭКЗ_по_Form
 
                     if (row < 3 && (row + col) % 2 != 0) // Шашки первого игрока
                     {
-                        buttons[row, col].Content = new Checker { Player = player1, Color = "B" };// B - для черных шашек
+                        IChecker checker = new Checker {Color = "B", Point.X = row, Point.Y = col};
+                        player1.Checkers.Add(checker); // добавляем шашки первого игрока
+                        buttons[row, col].Content = checker;// B - для черных шашек
                         
                     }
                     else if (row > 4 && (row + col) % 2 != 0) // Шашки второго игрока
                     {
-                        buttons[row, col].Content = new Checker { Player = player2, Color = "W" }; // W - для белых шашек                       
+                        IChecker checker = new Checker {Color = "W", Point.X = row, Point.Y = col};
+                        player2.Checkers.Add(checker);  // добавляем шашки второго игрока
+                        buttons[row, col].Content = checker; // W - для белых шашек                       
                     }
                     else
                     {
@@ -47,6 +51,8 @@ namespace ЭКЗ_по_Form
                     }                                  
                 }
             }
+        }
+        public Button[,] GetButtons() {
             return buttons;
         }
     }

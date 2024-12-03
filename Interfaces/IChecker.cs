@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace ЭКЗ_по_Form
 {
-    public interface IPlayer
+    internal interface IChecker
     {
-        Player Player { get; set; }
+        String Color { get; set; } 
+        Point Point { get; set; }
+        void MoveChecker(int x, int y);
     }
 }
